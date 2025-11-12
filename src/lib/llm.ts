@@ -51,7 +51,7 @@ export async function callLLM(
 }
 
 async function callAnthropic(
-  messages: Message[],
+  messages: Array<{ role: string; content: string }>,
   config: LLMConfig
 ): Promise<string> {
   const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -79,7 +79,7 @@ async function callAnthropic(
 }
 
 async function callOpenAI(
-  messages: Message[],
+  messages: Array<{ role: string; content: string }>,
   config: LLMConfig
 ): Promise<string> {
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -109,7 +109,7 @@ async function callOpenAI(
 }
 
 async function callOllama(
-  messages: Message[],
+  messages: Array<{ role: string; content: string }>,
   config: LLMConfig
 ): Promise<string> {
   const endpoint = config.apiKey || 'http://localhost:11434';

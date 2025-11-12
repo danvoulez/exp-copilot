@@ -1,5 +1,6 @@
-import { blake3 } from '@noble/hashes/blake3';
-import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
+// Use direct imports without path extensions
+import { blake3 } from '@noble/hashes/blake3.js';
+import { bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
 import type { Span } from '../types';
 
 // Generate UUID v7 (timestamp-based)
@@ -70,7 +71,10 @@ export async function verifySignature(
   publicKey: JsonWebKey
 ): Promise<boolean> {
   try {
-    const signatureBytes = hexToBytes(signature.replace('ed25519:', ''));
+    const signatureHex = signature.replace('ed25519:', '');
+    const signatureBytes = new Uint8Array(
+      signatureHex.match(/.{1,2}/g)!.map(byte => parseInt(byte, 16))
+    );
     
     const canonical = JSON.stringify({
       id: span.id,

@@ -4,13 +4,11 @@ import {
   saveCredential,
   saveIdentity,
   saveSession,
-  getCredential,
   appendToLedger,
 } from './db';
 import {
   generateId,
   encryptApiKey,
-  hashApiKey,
   generateKeyPair,
   detectProvider,
   calculateSpanHash,
@@ -106,10 +104,8 @@ export async function createSession(userId: string): Promise<Session> {
   return session;
 }
 
-export async function login(apiKey: string): Promise<User | null> {
+export async function login(): Promise<User | null> {
   try {
-    const keyHash = await hashApiKey(apiKey);
-    
     // Try to find user by API key hash
     // Note: This is a simplified implementation
     // In a real app, you'd need to iterate through credentials

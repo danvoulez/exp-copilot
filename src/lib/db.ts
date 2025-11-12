@@ -1,4 +1,4 @@
-import { openDB, DBSchema, IDBPDatabase } from 'idb';
+import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import type { Span, Contract, User, Credential, Identity, Session } from '../types';
 
 interface MinicontratosDB extends DBSchema {
