@@ -43,11 +43,10 @@ export const Onboarding: React.FC = () => {
       }
       
       // Register user
-      await registerUser(name, apiKey);
+      const { user } = await registerUser(name, apiKey);
       
-      // Create session (simplified - we'll improve this later)
-      const userId = `user-${name.toLowerCase().replace(/[^a-z0-9]/g, '')}-${Math.random().toString(36).substring(2, 5)}`;
-      await createSession(userId);
+      // Create session with the registered user ID
+      await createSession(user.id);
       
       setStep('complete');
       

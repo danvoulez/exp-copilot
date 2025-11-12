@@ -19,8 +19,12 @@ export async function registerUser(
   name: string,
   apiKey: string
 ): Promise<{ user: User; credential: Credential; identity: Identity }> {
-  // Generate user ID
-  const shortId = Math.random().toString(36).substring(2, 5);
+  // Generate user ID with cryptographically secure random
+  const randomBytes = crypto.getRandomValues(new Uint8Array(3));
+  const shortId = Array.from(randomBytes)
+    .map(b => b.toString(36))
+    .join('')
+    .substring(0, 5);
   const sanitizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
   const userId = `user-${sanitizedName}-${shortId}`;
   
